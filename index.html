@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Uberdev3</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            margin: 32px;
+            max-width: 760px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+        }
+
+        .muted {
+            color: #666;
+            margin: 0 0 24px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 12px 0;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+
+        .name {
+            font-weight: 700;
+        }
+
+        .status {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .links a {
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Uberdev3</h1>
+    <p class="muted">Projects (kept simple on purpose)</p>
+
+    <div id="projects">Loading…</div>
+
+    <script>
+    async function loadProjects() {
+      const el = document.getElementById("projects");
+      try {
+        const res = await fetch("projects.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load projects.json");
+        const projects = await res.json();
+
+        el.innerHTML = projects.map(p => {
+          const links = (p.links || []).map(l =>
+            `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
+          ).join("");
+
+          return `
+            <div class="card">
+              <div class="row">
+                <div class="name">${p.name}</div>
+                <div class="status">${p.status || ""}</div>
+              </div>
+              <div class="links" style="margin-top:8px">${links}</div>
+            </div>
+          `;
+        }).join("");
+      } catch (err) {
+        el.textContent = "Could not load projects.";
+        console.error(err);
+      }
+    }
+    loadProjects();
+    </script>
+</body>
+</html>
