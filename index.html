@@ -50,6 +50,26 @@
         .links a {
             margin-right: 12px;
         }
+        .socials {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0 20px;
+        }
+
+            .socials a {
+                padding: 6px 10px;
+                border: 1px solid #ddd;
+                border-radius: 999px;
+                text-decoration: none;
+                font-size: 0.9rem;
+                color: #000;
+            }
+
+                .socials a:hover {
+                    background: #f5f5f5;
+                }
+
     </style>
 </head>
 <body>
@@ -58,11 +78,17 @@
     <p class="muted">
         I build games and small programming projects. This site is a simple list of things I have made.
     </p>
+    <div class="socials">
+        <a href="https://www.youtube.com/@YOURNAME" target="_blank">YouTube</a>
+        <a href="https://twitter.com/YOURNAME" target="_blank">Twitter</a>
+        <a href="https://www.tiktok.com/@YOURNAME" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/YOURNAME" target="_blank">Instagram</a>
+    </div>
 
     <p class="muted">Projects (kept simple on purpose)</p>
 
 
-    <div id="projects">Loading…</div>
+    <div id="projects">Loadingï¿½</div>
 
     <script>
         async function loadProjects() {
@@ -78,14 +104,14 @@
                     ).join("");
 
                     return `
-                <div class="card">
-                  <div class="row">
-                    <div class="name">${p.name}</div>
-                    <div class="status">${p.status || ""}</div>
-                  </div>
-                  <div class="links" style="margin-top:8px">${links}</div>
-                </div>
-              `;
+                    <div class="card">
+                      <div class="row">
+                        <div class="name">${p.name}</div>
+                        <div class="status">${p.status || ""}</div>
+                      </div>
+                      <div class="links" style="margin-top:8px">${links}</div>
+                    </div>
+                  `;
                 }).join("");
             } catch (err) {
                 el.textContent = "Could not load projects.";
